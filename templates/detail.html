@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ .Title }}</title>
+  <link href="/static/css/blog.css" rel="stylesheet">
+</head>
+<body>
+  <div id="content">
+    <h1>{{ .Title }}</h1>
+    <p class="date">
+      Published {{ .Published }} by admin
+    </p>
+    {{ .Body }}
+  </div>
+  <div id="sidebar">
+    <h2>My blog</h2>
+    <p>
+      This is my blog.
+    </p>
+  </div>
+</body>
+</html>

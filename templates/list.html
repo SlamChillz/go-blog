@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Blog</title>
+  <link href="/static/css/blog.css" rel="stylesheet">
+</head>
+<body>
+  <div id="content">
+    {{ range .Posts -}}
+      <h2><a href="{{ .AbsoluteUrl }}">{{ .Title }}</a></h2>
+      <p class="date">Published {{ .Published }} by admin</p>
+      {{ .Body }}
+    {{ end -}}
+    <div class="pagination">
+      <span class="step-links">
+        {{ if .Pager.HasPrev }}
+          <a href="?page={{ .Pager.Prev }}">Previous</a>
+        {{ end }}
+        <span class="current">
+          Page {{ .Pager.Page }} of {{ .Pager.TotalPages }}.
+        </span>
+        {{ if .Pager.HasNext }}
+          <a href="?page={{ .Pager.Next }}">Next</a>
+        {{ end }}
+      </span>
+    </div>
+  </div>
+  <div id="sidebar">
+    <h2>My blog</h2>
+    <p>
+      This is my blog.
+    </p>
+  </div>
+</body>
+</html>

@@ -18,17 +18,18 @@ var (
 var db *sql.DB
 
 func init() {
+	var err error
 	connInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", HOST, PORT, USER, PASSWORD, DBNAME)
-	db, err := sql.Open("postgres", connInfo)
+	db, err = sql.Open("postgres", connInfo)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	// defer db.Close()
 	err = db.Ping()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Connected to database successfully.")
+	fmt.Printf("Connected to database successfully.\n")
 }
 
 // BLOG_HOST=localhost BLOG_PORT=5432 BLOG_USER=mendy BLOG_DBNAME=blog BLOG_DBPASSWORD=mendy

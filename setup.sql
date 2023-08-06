@@ -11,7 +11,7 @@ CREATE DATABASE blog
 WITH
 	ENCODING = 'UTF8'
 	OWNER = mendy
-	CONNECTION LIMIT = 5;
+	CONNECTION LIMIT = -1;
 
 ---use databse blog
 \c blog;
