@@ -6,9 +6,25 @@
 </head>
 <body>
   <div id="content">
+    <h1>My Blog</h1>
+    {{ $tagName := len .TagName }}
+    {{ if gt $tagName 0 }}
+      <h2>Posts tagged with "{{ .TagName }}"</h2>
+    {{ end }}
     {{ range .Posts -}}
       <h2><a href="{{ .AbsoluteUrl }}">{{ .Title }}</a></h2>
-      <p class="date">Published {{ .Published }} by admin</p>
+      <p class="tags">
+        {{ $len := len .Tags }}
+        Tags:
+        {{ range .Tags }}
+          <a href="{{ .TagUrl }}">
+            {{ .Name }}, 
+          </a>
+        {{ end }}
+      </p>
+      <p class="date">
+        Published {{ .Published }} by admin
+      </p>
       {{ .Body }}
     {{ end -}}
     <div class="pagination">

@@ -7,12 +7,22 @@ type Feeds struct {
 	LatestPosts []Post
 }
 
+type Tag struct {
+	Id int
+	Name string
+}
+
+func(t Tag) TagUrl() string {
+	return fmt.Sprintf("/blog/tag/%s", t.Name)
+}
+
 type Post struct {
 	Id int
 	Title string
 	Slug string
 	Body string
 	Published string
+	Tags []Tag
 }
 
 func(p *Post) AbsoluteUrl() string {
@@ -70,6 +80,7 @@ type ListPosts struct {
 	Posts []Post
 	Pager *Pager
 	Feeds *Feeds
+	TagName string
 }
 
 type DetailPost struct {

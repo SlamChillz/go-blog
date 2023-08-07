@@ -19,15 +19,24 @@ func PostList(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var offset int
 	var t *template.Template
+	vars := mux.Vars(r)
 	listPosts := ListPosts{Feeds: feeds}
 	listPosts.Pager, offset, err = Paginate(r)
+	if err != nil {
+		Error(w, http.StatusInternalServerError, err)
+		return
+	}
+	if tagName, ok := vars["name"]; ok {
+		listPosts.TagName = tagName
+		listPosts.Posts, err = GetPostsByTag(tagName, offset)
+	} else {
+		listPosts.TagName = ""
+		listPosts.Posts, err = GetAllPosts(offset)
+	}
+	t, err = template.ParseFiles("templates/list.html")
 	if err == nil {
-		t, err = template.ParseFiles("templates/list.html")
 		if err == nil {
-			listPosts.Posts, err = GetAllPosts(offset)
-			if err == nil {
-				err = t.Execute(w, &listPosts)
-			}
+			err = t.Execute(w, &listPosts)
 		}
 	}
 	if err != nil {

@@ -118,3 +118,37 @@ CREATE TABLE comments (
 	active BOOLEAN DEFAULT TRUE NOT NULL,
 	CONSTRAINT fk_post FOREIGN KEY(post) REFERENCES posts(id) ON DELETE CASCADE
 );
+
+---
+---create tags table
+---
+
+DROP TABLE IF EXISTS tags;
+
+CREATE TABLE tags (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50) UNIQUE NOT NULL
+);
+
+---
+---populate tags table
+---
+INSERT INTO tags (name) VALUES ('data'),('education'),('entertainment'),('music'),('science'),('technology');
+
+---
+---post tag relationship
+---
+CREATE TABLE posts_tags (
+	postid INT REFERENCES posts (id),
+	tagid INT REFERENCES tags (id),
+	CONSTRAINT posts_tags_pk PRIMARY KEY(postid, tagid)
+);
+
+INSERT INTO posts_tags (postid, tagid) VALUES (1,2),(1,5),(1,6);
+INSERT INTO posts_tags (postid, tagid) VALUES (2,2),(2,5),(2,6);
+INSERT INTO posts_tags (postid, tagid) VALUES (3,2),(3,6);
+INSERT INTO posts_tags (postid, tagid) VALUES (4,1),(4,5),(4,6);
+INSERT INTO posts_tags (postid, tagid) VALUES (5,3),(5,4);
+INSERT INTO posts_tags (postid, tagid) VALUES (6,2),(6,6);
+INSERT INTO posts_tags (postid, tagid) VALUES (7,2),(7,5),(7,6);
+INSERT INTO posts_tags (postid, tagid) VALUES (8,3),(8,4);
