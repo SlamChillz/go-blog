@@ -26,10 +26,20 @@
     {{ end }}
   </div>
   <div id="sidebar">
+    {{ $feeds := index . "feeds" }}
     <h2>My blog</h2>
     <p>
       This is my blog.
+      This blog contains {{ $feeds.TotalPosts }} posts.
     </p>
-  </div>
+    <h3>Latest posts</h3>
+    <ul>
+      {{ range $feeds.LatestPosts }}
+        <li>
+          <a href="{{ .AbsoluteUrl }}">{{ .Title }}</a>
+        </li>
+      {{ end }}
+    </ul>
+</div>
 </body>
 </html>

@@ -2,6 +2,11 @@ package main
 
 import "fmt"
 
+type Feeds struct {
+	TotalPosts int
+	LatestPosts []Post
+}
+
 type Post struct {
 	Id int
 	Title string
@@ -64,9 +69,11 @@ func(p *Pager) TotalPages() int {
 type ListPosts struct {
 	Posts []Post
 	Pager *Pager
+	Feeds *Feeds
 }
 
 type DetailPost struct {
 	Post Post
 	Comments []Comment
+	Feeds *Feeds
 }

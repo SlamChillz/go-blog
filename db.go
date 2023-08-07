@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"log"
 	_ "github.com/lib/pq"
 )
 
@@ -15,7 +16,11 @@ var (
 	PASSWORD = os.Getenv("BLOG_DBPASSWORD")
 )
 
-var db *sql.DB
+var (
+	db *sql.DB
+	feeds *Feeds
+)
+
 
 func init() {
 	var err error
@@ -29,7 +34,21 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	bootStrapFeeds()
 	fmt.Printf("Connected to database successfully.\n")
+}
+
+func bootStrapFeeds() {
+	var err error
+	feeds = &Feeds{}
+	feeds.TotalPosts, err = CountPosts()
+	if err != nil {
+		log.Fatalf("%v\n", err)
+	}
+	feeds.LatestPosts, err = GetAllPosts(0)
+	if err != nil {
+		log.Fatalf("%v\n", err)
+	}
 }
 
 // BLOG_HOST=localhost BLOG_PORT=5432 BLOG_USER=mendy BLOG_DBNAME=blog BLOG_DBPASSWORD=mendy

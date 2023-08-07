@@ -29,7 +29,16 @@
     <h2>My blog</h2>
     <p>
       This is my blog.
+      This blog contains {{ .Feeds.TotalPosts }} posts.
     </p>
+    <h3>Latest posts</h3>
+    <ul>
+      {{ range .Feeds.LatestPosts }}
+        <li>
+          <a href="{{ .AbsoluteUrl }}">{{ .Title }}</a>
+        </li>
+      {{ end }}
+    </ul>
   </div>
 </body>
 </html>

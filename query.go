@@ -5,7 +5,7 @@ func GetAllPosts(offset int) ([]Post, error) {
 	rows, err := db.Query(`
 		SELECT id, title, slug, body, published
 		FROM posts
-		ORDER BY published
+		ORDER BY published DESC
 		LIMIT $1 OFFSET $2`, PageLimit, offset)
 	if err != nil {
 		return nil, err

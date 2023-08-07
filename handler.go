@@ -19,7 +19,7 @@ func PostList(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var offset int
 	var t *template.Template
-	listPosts := ListPosts{}
+	listPosts := ListPosts{Feeds: feeds}
 	listPosts.Pager, offset, err = Paginate(r)
 	if err == nil {
 		t, err = template.ParseFiles("templates/list.html")
@@ -37,7 +37,7 @@ func PostList(w http.ResponseWriter, r *http.Request) {
 
 func PostDetail(w http.ResponseWriter, r *http.Request) {
 	var err error
-	var detailPost = DetailPost{}
+	var detailPost = DetailPost{Feeds: feeds}
 	vars := mux.Vars(r)
 	slug := vars["slug"]
 	id, err := strconv.Atoi(vars["id"])
@@ -69,6 +69,7 @@ func PostComment(w http.ResponseWriter, r *http.Request) {
 	comment := map[string]interface{} {
 		"success": false,
 		"post": &Post{},
+		"feeds": feeds,
 	}
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
