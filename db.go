@@ -50,5 +50,3 @@ func bootStrapFeeds() {
 		log.Fatalf("%v\n", err)
 	}
 }
-
-// BLOG_HOST=localhost BLOG_PORT=5432 BLOG_USER=mendy BLOG_DBNAME=blog BLOG_DBPASSWORD=mendy
