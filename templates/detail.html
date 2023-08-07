@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{ .Title }}</title>
+  <title>{{ .Post.Title }}</title>
   <link href="/static/css/blog.css" rel="stylesheet">
 </head>
 <body>
   <div id="content">
-    <h1>{{ .Title }}</h1>
+    <h1>{{ .Post.Title }}</h1>
     <p class="date">
-      Published {{ .Published }} by admin
+      Published {{ .Post.Published }} by admin
     </p>
-    {{ .Body }}
+    {{ .Post.Body }}
+    {{ if gt (len .Comments) 1 }}
+      <h2>{{ len .Comments }} comments</h2>
+    {{ else }}
+      <h2>{{ len .Comments }} comment</h2>
+    {{ end }}
+    {{ range $key, $value := .Comments }}
+      <div class="comment">
+        <p class="info">
+          Comment by {{ $value.Name }}
+          {{ $value.Created }}
+        </p>
+        {{ $value.Body }}
+      </div>
+    {{ else }}
+      <p>There are no comments yet.</p>
+    {{ end }}
+    <h2>Add a new comment</h2>
+    <form action="{{ .Post.CommentUrl }}" method="post">
+      <p>
+        <label for="id_name">Name:</label>
+        <input type="text" name="name" maxlength="80" required="" id="id_name">
+      </p>
+      <p>
+        <label for="id_body">Body:</label>
+        <textarea name="body" cols="40" rows="10" required="" id="id_body"></textarea>
+      </p>
+      <p><input type="submit" value="Add comment"></p>
+    </form>
   </div>
   <div id="sidebar">
     <h2>My blog</h2>

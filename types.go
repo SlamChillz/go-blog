@@ -14,6 +14,17 @@ func(p *Post) AbsoluteUrl() string {
 	return fmt.Sprintf("/blog/%d/%s", p.Id, p.Slug)
 }
 
+func(p *Post) CommentUrl() string {
+	return fmt.Sprintf("/blog/%d/comment", p.Id)
+}
+
+type Comment struct {
+	Id int
+	Name string
+	Body string
+	Created string
+}
+
 
 type Pager struct {
 	pageNumber int
@@ -50,8 +61,12 @@ func(p *Pager) TotalPages() int {
 	return p.totalPages
 }
 
-
 type ListPosts struct {
 	Posts []Post
 	Pager *Pager
+}
+
+type DetailPost struct {
+	Post Post
+	Comments []Comment
 }

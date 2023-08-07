@@ -103,3 +103,18 @@ INSERT INTO posts (title, body) VALUES ('Jazz Music', 'Jazz is a music genre tha
 INSERT INTO posts (title, body) VALUES ('Education Technology', 'Educational technology (commonly abbreviated as edutech, or edtech) is the combined use of computer hardware, software, and educational theory and practice to facilitate learning.[1][2] When referred to with its abbreviation, edtech, it often refers to the industry of companies that create educational technology.');
 INSERT INTO posts (title, body) VALUES ('Teacher', 'A teacher, also called a schoolteacher or formally an educator, is a person who helps students to acquire knowledge, competence, or virtue, via the practice of teaching.');
 INSERT INTO posts (title, body) VALUES ('Song Writer', 'A songwriter is a musician who professionally composes musical compositions or writes lyrics for songs, or both. The writer of the music for a song can be called a composer, although this term tends to be used mainly in the classical music genre and film scoring.');
+
+---
+---comments table
+---
+DROP TABLE IF EXISTS comments;
+
+CREATE TABLE comments (
+	id SERIAL PRIMARY KEY,
+	post INT,
+	name VARCHAR(50) NOT NULL,
+	body TEXT NOT NULL,
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	active BOOLEAN DEFAULT TRUE NOT NULL,
+	CONSTRAINT fk_post FOREIGN KEY(post) REFERENCES posts(id) ON DELETE CASCADE
+);
