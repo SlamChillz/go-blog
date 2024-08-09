@@ -3,24 +3,23 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"os"
-	"log"
 	_ "github.com/lib/pq"
+	"log"
+	"os"
 )
 
 var (
-	HOST = os.Getenv("BLOG_HOST")
-	PORT = os.Getenv("BLOG_PORT")
-	USER = os.Getenv("BLOG_USER")
-	DBNAME = os.Getenv("BLOG_DBNAME")
-	PASSWORD = os.Getenv("BLOG_DBPASSWORD")
+	HOST     = os.Getenv("DB_HOST")
+	PORT     = os.Getenv("DB_PORT")
+	USER     = os.Getenv("DB_USER")
+	DBNAME   = os.Getenv("DB_NAME")
+	PASSWORD = os.Getenv("DB_PASSWORD")
 )
 
 var (
-	db *sql.DB
+	db    *sql.DB
 	feeds *Feeds
 )
-
 
 func init() {
 	var err error
